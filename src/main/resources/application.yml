@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@172.16.36.8:1521:amen
+    username: spacetime
+    password: spacetimeamen
+    filters: slf4j,wall,mergeStat
+    initialSize: 5
+    minIdle: 5
+    maxActive: 10
+    #连接等待超时时间
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true
+    type: com.alibaba.druid.pool.DruidDataSource
+
+#多数据源分局
+sub-bureau:
+ muti-datasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://172.16.23.2:3306/test_haj?useUnicode=true&characterEncoding=utf-8&useSSL=true
+  username: ggaq
+  password: ggaq
+  initialSize: 10
+  minIdle: 5
+  maxActive: 10
+  #连接等待超时时间
+  maxWait: 60000
+  timeBetweenEvictionRunsMillis: 60000
+  minEvictableIdleTimeMillis: 300000
+  validationQuery: SELECT 1 FROM DUAL
+  testWhileIdle: true
+  testOnBorrow: false
+  testOnReturn: false
+  poolPreparedStatements: true
+  maxPoolPreparedStatementPerConnectionSize: 20
+  filters: stat,wall,mergeStat
+  connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  useGlobalDataSourceStat: true
+
+datasource:
+   muti-datasource-open: true #是否开启多数据源(true/false)
+   default-datasource-name: subBureau # 数据源名称定义为分局
+#############################################################################################
+mybatis-plus:
+  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+  mapper-locations: classpath:/com/example/demo/**/mapping/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.example.demo.*.model
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 1
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
