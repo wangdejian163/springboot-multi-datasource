@@ -34,5 +34,18 @@ public class TestController {
     public List<Mysql> testMysql() {
         return testService.findMysqlList();
     }
-
+	
+    /**
+     * 测试全局异常是否执行.
+     * @return
+     */
+    @RequestMapping(value = "globalExcepionHanderTest")
+    public ResponseEntity<Mysql> globalExcepionHanderTest() {
+        Mysql mysql = testService.findMysqlById();
+       // 自定义抛异常条件
+		if (null == mysql) {
+            throw new NotFoundException("查询结果为空.................");
+        }
+        return new ResponseEntity<Mysql>(mysql, HttpStatus.OK);
+    }
 }

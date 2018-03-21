@@ -45,4 +45,21 @@ public class TestServiceImpl implements TestService {
         return mysqlMapper.selectList(new EntityWrapper<Mysql>().eq("id", 7));
     }
 
+	  /**
+     * 这里如果不满足既定条件，则抛出自定义异常。
+     *
+     * @return
+     */
+    @Override
+    @DynamicSource
+    public Mysql findPoliceNameById() {
+        Mysql mysql = mysqlMapper.selectById(100);
+        // 表中不存在100. 定义查询结果为null时抛出自定义异常.
+        if (null == mysql) {
+            throw new NotFoundException("查询结果为空.................");
+        }
+
+        return mysqlMapper.selectById(100);
+    }
+	
 }

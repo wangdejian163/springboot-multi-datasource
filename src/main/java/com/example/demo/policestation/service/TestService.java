@@ -19,5 +19,7 @@ public interface TestService {
     List<Oracle> findOracleList();
 
     List<Mysql> findMysqlList();
+	
+	Mysql findMysqlById();
 
 }
