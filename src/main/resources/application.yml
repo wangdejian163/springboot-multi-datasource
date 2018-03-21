@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@172.16.36.8:1521:amen
+    url: jdbc:oracle:thin:@ip:port:table
     username: spacetime
     password: spacetimeamen
     filters: slf4j,wall,mergeStat
@@ -26,7 +26,7 @@ spring:
 sub-bureau:
  muti-datasource:
   driver-class-name: com.mysql.jdbc.Driver
-  url: jdbc:mysql://172.16.23.2:3306/test_haj?useUnicode=true&characterEncoding=utf-8&useSSL=true
+  url: jdbc:mysql://ip:port/table?useUnicode=true&characterEncoding=utf-8&useSSL=true
   username: ggaq
   password: ggaq
   initialSize: 10
@@ -48,7 +48,7 @@ sub-bureau:
 
 datasource:
    muti-datasource-open: true #是否开启多数据源(true/false)
-   default-datasource-name: subBureau # 数据源名称定义为分局
+   default-datasource-name: subBureau # 定义默认数据源名称
 #############################################################################################
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
