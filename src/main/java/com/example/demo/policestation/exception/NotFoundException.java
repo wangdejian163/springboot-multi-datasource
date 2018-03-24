@@ -1,4 +1,4 @@
-package com.bonc.casefile.policestation.exception;
+package com.example.demo.policestation.exception;
 
 /**
  * <p>

@@ -2,6 +2,7 @@ package com.example.demo.policestation.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.example.demo.policestation.config.annotion.DynamicSource;
+import com.example.demo.policestation.exception.NotFoundException;
 import com.example.demo.policestation.mapper.MysqlMapper;
 import com.example.demo.policestation.mapper.OracleMapper;
 import com.example.demo.policestation.model.Mysql;
@@ -52,7 +53,7 @@ public class TestServiceImpl implements TestService {
      */
     @Override
     @DynamicSource
-    public Mysql findPoliceNameById() {
+    public Mysql findMysqlById() {
         Mysql mysql = mysqlMapper.selectById(100);
         // 表中不存在100. 定义查询结果为null时抛出自定义异常.
         if (null == mysql) {
