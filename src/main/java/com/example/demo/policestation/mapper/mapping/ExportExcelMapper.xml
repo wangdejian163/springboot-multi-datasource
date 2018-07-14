@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.policestation.mapper.ExportExcelMapper">
+
+
+    <!-- 查询出导出excel表所需数据-->
+    <select id="selectExportExcel" resultType="java.util.Map">
+        SELECT * FROM role  where pid ='2283d232-8730-11e8-8cce-00ff1e0c2a45'
+    </select>
+</mapper>
