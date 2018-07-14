@@ -5,7 +5,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
- * <p></p>
+ * <p>
+ *     多数据源1
+ * </p>
  *
  * @author wangdejian
  * @since 2018/3/20
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:/application.yml")
 @ConfigurationProperties(prefix = "spring.datasource")
-public class PoliceProperties {
+public class MasterProperties {
 
     private String url;
 
@@ -188,7 +190,7 @@ public class PoliceProperties {
 
     @Override
     public String toString() {
-        return "PoliceProperties{" +
+        return "MasterProperties{" +
                 "url='" + url + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

@@ -2,8 +2,8 @@ package com.example.demo.policestation.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
-import com.example.demo.policestation.config.properties.PoliceProperties;
-import com.example.demo.policestation.config.properties.SubBureauProperties;
+import com.example.demo.policestation.config.properties.MasterProperties;
+import com.example.demo.policestation.config.properties.SlaveProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -30,14 +30,14 @@ import java.util.HashMap;
 public class MybatisPlusConfig {
 
     @Autowired
-    private PoliceProperties policeProperties;
+    private MasterProperties masterProperties;
 
     @Autowired
-    private SubBureauProperties subBureauProperties;
+    private SlaveProperties slaveProperties;
 
     private DruidDataSource stationDataSource(){
         DruidDataSource dataSource = new DruidDataSource();
-        this.dataSourceConfig(dataSource, policeProperties, null);
+        this.dataSourceConfig(dataSource, masterProperties, null);
         return dataSource;
     }
 
@@ -46,7 +46,7 @@ public class MybatisPlusConfig {
      */
     private DruidDataSource subBureauDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        this.dataSourceConfig(dataSource, null, subBureauProperties);
+        this.dataSourceConfig(dataSource, null, slaveProperties);
         return dataSource;
     }
 
@@ -104,35 +104,35 @@ public class MybatisPlusConfig {
      *
      * @param dataSource
      */
-    private void dataSourceConfig(DruidDataSource dataSource, PoliceProperties policeProperties,
-                                  SubBureauProperties subBureauProperties) {
+    private void dataSourceConfig(DruidDataSource dataSource, MasterProperties masterProperties,
+                                  SlaveProperties slaveProperties) {
 
-        dataSource.setUrl(policeProperties == null ? subBureauProperties.getUrl() : policeProperties.getUrl());
-        dataSource.setUsername(policeProperties == null ? subBureauProperties.getUsername() : policeProperties.getUsername());
-        dataSource.setPassword(policeProperties == null ? subBureauProperties.getPassword() : policeProperties.getPassword());
+        dataSource.setUrl(masterProperties == null ? slaveProperties.getUrl() : masterProperties.getUrl());
+        dataSource.setUsername(masterProperties == null ? slaveProperties.getUsername() : masterProperties.getUsername());
+        dataSource.setPassword(masterProperties == null ? slaveProperties.getPassword() : masterProperties.getPassword());
 
-        dataSource.setDriverClassName(policeProperties == null ? subBureauProperties.getDriverClassName() : policeProperties.getDriverClassName());
-        dataSource.setInitialSize(policeProperties == null ? subBureauProperties.getInitialSize() :  policeProperties.getInitialSize());     //定义初始连接数
-        dataSource.setMinIdle(policeProperties == null ? subBureauProperties.getMinIdle() : policeProperties.getMinIdle());             //最小空闲
-        dataSource.setMaxActive(policeProperties == null ? subBureauProperties.getMaxActive() : policeProperties.getMaxActive());         //定义最大连接数
-        dataSource.setMaxWait(policeProperties == null ? subBureauProperties.getMaxWait() : policeProperties.getMaxWait());             //最长等待时间
+        dataSource.setDriverClassName(masterProperties == null ? slaveProperties.getDriverClassName() : masterProperties.getDriverClassName());
+        dataSource.setInitialSize(masterProperties == null ? slaveProperties.getInitialSize() :  masterProperties.getInitialSize());     //定义初始连接数
+        dataSource.setMinIdle(masterProperties == null ? slaveProperties.getMinIdle() : masterProperties.getMinIdle());             //最小空闲
+        dataSource.setMaxActive(masterProperties == null ? slaveProperties.getMaxActive() : masterProperties.getMaxActive());         //定义最大连接数
+        dataSource.setMaxWait(masterProperties == null ? slaveProperties.getMaxWait() : masterProperties.getMaxWait());             //最长等待时间
 
         // 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-        dataSource.setTimeBetweenEvictionRunsMillis(policeProperties == null ? subBureauProperties.getTimeBetweenEvictionRunsMillis() : policeProperties.getTimeBetweenEvictionRunsMillis());
+        dataSource.setTimeBetweenEvictionRunsMillis(masterProperties == null ? slaveProperties.getTimeBetweenEvictionRunsMillis() : masterProperties.getTimeBetweenEvictionRunsMillis());
 
         // 配置一个连接在池中最小生存的时间，单位是毫秒
-        dataSource.setMinEvictableIdleTimeMillis(policeProperties == null ? subBureauProperties.getMinEvictableIdleTimeMillis() : policeProperties.getMinEvictableIdleTimeMillis());
-        dataSource.setValidationQuery(policeProperties == null ? subBureauProperties.getValidationQuery() : policeProperties.getValidationQuery());
-        dataSource.setTestWhileIdle(policeProperties == null ? subBureauProperties.getTestWhileIdle() : policeProperties.getTestWhileIdle());
-        dataSource.setTestOnBorrow(policeProperties == null ? subBureauProperties.getTestOnBorrow() : policeProperties.getTestOnBorrow());
-        dataSource.setTestOnReturn(policeProperties == null ? subBureauProperties.getTestOnReturn() : policeProperties.getTestOnReturn());
+        dataSource.setMinEvictableIdleTimeMillis(masterProperties == null ? slaveProperties.getMinEvictableIdleTimeMillis() : masterProperties.getMinEvictableIdleTimeMillis());
+        dataSource.setValidationQuery(masterProperties == null ? slaveProperties.getValidationQuery() : masterProperties.getValidationQuery());
+        dataSource.setTestWhileIdle(masterProperties == null ? slaveProperties.getTestWhileIdle() : masterProperties.getTestWhileIdle());
+        dataSource.setTestOnBorrow(masterProperties == null ? slaveProperties.getTestOnBorrow() : masterProperties.getTestOnBorrow());
+        dataSource.setTestOnReturn(masterProperties == null ? slaveProperties.getTestOnReturn() : masterProperties.getTestOnReturn());
 
         // 打开PSCache，并且指定每个连接上PSCache的大小
-        dataSource.setPoolPreparedStatements(policeProperties == null ? subBureauProperties.getPoolPreparedStatements() : policeProperties.getPoolPreparedStatements());
-        dataSource.setMaxPoolPreparedStatementPerConnectionSize(policeProperties == null ? subBureauProperties.getMaxPoolPreparedStatementPerConnectionSize() : policeProperties.getMaxPoolPreparedStatementPerConnectionSize());
+        dataSource.setPoolPreparedStatements(masterProperties == null ? slaveProperties.getPoolPreparedStatements() : masterProperties.getPoolPreparedStatements());
+        dataSource.setMaxPoolPreparedStatementPerConnectionSize(masterProperties == null ? slaveProperties.getMaxPoolPreparedStatementPerConnectionSize() : masterProperties.getMaxPoolPreparedStatementPerConnectionSize());
 
         try {
-            dataSource.setFilters(policeProperties == null ? subBureauProperties.getFilters() : policeProperties.getFilters());
+            dataSource.setFilters(masterProperties == null ? slaveProperties.getFilters() : masterProperties.getFilters());
         } catch (SQLException e) {
             e.printStackTrace();
         }

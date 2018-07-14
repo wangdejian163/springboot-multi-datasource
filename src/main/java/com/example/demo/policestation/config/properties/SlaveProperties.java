@@ -5,15 +5,17 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
- * <p></p>
+ * <p>
+ *     多数据源2
+ * </p>
  *
  * @author wangdejian
  * @since 2018/3/20
  */
 @Component
 @PropertySource("classpath:/application.yml")
-@ConfigurationProperties(prefix = "sub-bureau.muti-datasource")
-public class SubBureauProperties {
+@ConfigurationProperties(prefix = "backup.muti-datasource")
+public class SlaveProperties {
 
     private String url;
 
@@ -188,7 +190,7 @@ public class SubBureauProperties {
 
     @Override
     public String toString() {
-        return "PoliceProperties{" +
+        return "SlaveProperties{" +
                 "url='" + url + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

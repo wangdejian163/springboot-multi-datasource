@@ -1,9 +1,9 @@
 spring:
   datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@ip:port:table
-    username: spacetime
-    password: spacetimeamen
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bonc?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: root
+    password: 1qaz@wsx
     filters: slf4j,wall,mergeStat
     initialSize: 5
     minIdle: 5
@@ -12,7 +12,7 @@ spring:
     maxWait: 60000
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
+    validationQuery: SELECT * FROM MYSQL
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
@@ -22,13 +22,13 @@ spring:
     useGlobalDataSourceStat: true
     type: com.alibaba.druid.pool.DruidDataSource
 
-#多数据源分局
-sub-bureau:
+#多数据源
+backup:
  muti-datasource:
-  driver-class-name: com.mysql.jdbc.Driver
-  url: jdbc:mysql://ip:port/table?useUnicode=true&characterEncoding=utf-8&useSSL=true
-  username: ggaq
-  password: ggaq
+  driver-class-name: oracle.jdbc.OracleDriver
+  url: jdbc:oracle:thin:@172.16.20.27:1521:ORCL
+  username: hkts
+  password: hkts
   initialSize: 10
   minIdle: 5
   maxActive: 10
