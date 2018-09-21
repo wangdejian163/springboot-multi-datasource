@@ -33,6 +33,7 @@ public class ExportExcelServiceImpl implements ExportExcelService {
     public void exportExcel(HttpServletResponse response) {
         // 定义表头
         String [] tableHeadValue = new String[]{"ID", "角色", "父ID", "角色名称", "组织结构ID", "版本号"};
+        // roles查询结果字段
         String [] tableHeadKey = new String[] {"id", "num", "pid", "name", "deptid", "version"};
         // 定义表数据
         List<Map> roles = exportExcelMapper.selectExportExcel();
