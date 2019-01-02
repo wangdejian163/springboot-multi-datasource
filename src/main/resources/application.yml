@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bonc?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/dbdemo?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     username: root
     password: 1qaz@wsx
     filters: slf4j,wall,mergeStat
@@ -26,9 +26,9 @@ spring:
 backup:
  muti-datasource:
   driver-class-name: oracle.jdbc.OracleDriver
-  url: jdbc:oracle:thin:@172.16.20.27:1521:ORCL
-  username: hkts
-  password: hkts
+  url: jdbc:oracle:thin:@172.16.36.158:1521:ORCL
+  username: spacetime
+  password: spacetime
   initialSize: 10
   minIdle: 5
   maxActive: 10
